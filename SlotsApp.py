@@ -1,4 +1,5 @@
 import sys
+from PyQt5 import QtGui
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtCore import Qt
 
@@ -6,7 +7,7 @@ from PyQt5.QtCore import Qt
 class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
-        super(MainWindow, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         # SIGNAL: The connected function will be called whenever the window
         # title is changed. The new title will be passed to the function.
@@ -47,6 +48,18 @@ class MainWindow(QMainWindow):
     @staticmethod
     def my_custom_fn(title="Default Title", param="Default Parameter"):
         print(title, param)
+
+    def contextMenuEvent(self, event: QtGui.QContextMenuEvent) -> None:
+        print("Context menu event")
+        super().contextMenuEvent(event)
+
+    # Event propagation up the UI hierarchy
+    """
+    Event object 'e'
+    
+    e.accept() - stops propagation further up the UI hierarchy
+    e.ignore() - allows further propagation
+    """
 
 
 # Allow CLI arguments - use 'app = QApplication([])' if no CLI functionality wanted
